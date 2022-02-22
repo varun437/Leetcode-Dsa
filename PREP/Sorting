@@ -1,0 +1,199 @@
+*********************************************************************************************************************************************************************************
+1. Bubble Sort: It works by repeatedly swapping the adjacent wrong elements.
+   Time Complexity : Best => O(n) , Worst & Average => O(n*n)
+   Space Complexity: O(1) 
+   Stablitiy       : Stable
+   Is-In-Place     : In-Place	
+   When to use     : 1. If array is of small size 
+		             2. If array is of large size but nearly sorted
+   Remark          : Easiest to implement	
+CODE:
+void bubble_sort(vector <int> arr, int n){
+	for(int itr=1;itr<n;itr++){
+		for(int j=0;j<(n-itr-);j++){
+			if(arr[j]>arr[j+1])
+				swap(arr[j],arr[j+1]);
+		}
+	}
+}	
+RECURSIVE:
+void bubble_sort(vector <int> arr, int n){
+    if (n == 1)        // Base case
+        return;
+		
+    for (int i=0; i<n-1; i++)
+        if (arr[i] > arr[i+1])
+            swap(arr[i], arr[i+1]);
+ 
+    bubble_sort(arr, n-1);
+}
+*********************************************************************************************************************************************************************************
+2. Selection Sort: It sorts an array by repeatedly finding the minimum element (considering decresing order) from unsorted part and putting it at the beginning.
+   Time Complexity : Best & Worst & Average => O(n*n)
+   Space Complexity: O(1) 
+   Stablitiy       : Not-Stable
+   Is-In-Place     : In-Place
+   When to use     : 1. If array is of small size
+		             2. To minimise the number of swaps
+   Remarks         : Bubble sort has more number of swaps as compare to selection
+		                 Sort but bubble sort has better best time complexity.
+		                 It can also be implemented as stabaly.
+		                 Selection sort makes O(n) swaps which is minimum among all sorting algorithms mentioned above.	
+  CODE:
+  void selection_sort(vector <int> arr, int n){
+	int min_index=i;
+	for(int j=i;j<n;j++){
+		if(arr[j]<arr[min_index])
+			min_index=j;
+		}
+		swap(arr[i],arr[min_index]);
+	}	
+
+*********************************************************************************************************************************************************************************
+3. Insertion Sort: Values from unsorted part is picked and placed at the sorted position.
+   Time Complexity : Best => O(n) , Worst & Average => O(n*n)
+   Space Complexity: O(1) 
+   Stablitiy       : Stable
+   Is-In-Place     : In-Place
+   When to use     : 1. If array is of small size and nearly sorted
+   Remark          : Standard Libraray of C uses this algo when n becomes smaller
+		                 than a threshold and for small size it is better than merge
+		                 and quick sort becasue of low constant values and non
+ 		                 recusive in nature.
+ CODE:
+ void insertion_sort(vector <int> arr, int n){
+	for(int i=1;j<n;j++){
+		int e=arr[i];
+		int j=i-1;
+		while(j>=0 && arr[j]<arr[j]>e){
+			a[j+1]=a[j];
+			j=j-1;
+		}
+		a[j+1]=e;
+	}	
+*********************************************************************************************************************************************************************************
+4. Heap Sort: It is a comparison based sorting technique based on Binary Heap data structure.
+   Time Complexity : Best & Worst & Average => O(nLog(n))
+   Space Complexity: O(1) 
+   Stablitiy       : Not-Stable
+   Is-In-Place     : In-Place
+   When to use     : When the input array is large and stable sort is not 
+                     required.		
+   Remark          : It always guaranteed to be O(nLog(n)) with constant space 
+                     which solves the problem of overflow of address space of a 
+                     process which may occur in merge and quick sort(recursive stack).
+CODE:
+int arr[10]= {0,1,3,17,2,30,7,25,19}
+void heap_sort(int idx){
+	int left=2*idx;
+	int right=2*idx+1;
+	int min_idx=idx;
+	int last=arr.size()-1;
+	if(left <= last && compare(arr[left],arr[idx])
+		min_idx=left;
+	if(right <= last && compare(arr[right],arr[idx])
+		min_idx=right;
+	if(min_idx!=idx){
+		swap(arr[idx],arr[min_idx]);
+		heap_sort(min_idx);
+	}
+	
+bool compare(int a,int b){
+	if(minHeap)
+		return a<b;
+	else
+		return a>b;
+}	
+*********************************************************************************************************************************************************************************
+5. Counting Sort: It is a sorting technique based on keys between a specific range.
+   Time Complexity : Best & Worst & Average => O(n+k)
+   Space Complexity: O(n+k) 
+   Stablitiy       : Not-Stable
+   Is-In-Place     : In-Place
+CODE:
+void count_sort(int arr[],int n){
+    int output[n];
+    int count[10];
+    memset(count, 0, sizeof(count));
+    for (i = 0;i<n;i++)
+        ++count[arr[i]];
+    for (i = 1; i<10;i++)
+        count[i] += count[i - 1];
+    for (i = 0;i<n; ++i) {
+        output[count[arr[i]] - 1] = arr[i];
+        --count[arr[i]];
+    }
+}
+*********************************************************************************************************************************************************************************
+6. Merge Sort: It is based on Divide and Conquer algorithm. It divides the input array into two halves, calls itself for the two halves, and then merges the two sorted halves.
+   Time Complexity : Best & Worst & Average => O(nLog(n))
+   Space Complexity: O(n) 
+   Stablitiy       : Stable 
+   Is-In-Place     : Not-In-Place
+   Tag             : Divide & Conquer
+   When to use     : 1.When we don't have random access(linked list)
+                      [R.A like as we have in array]
+                     2.When array is not to large.
+CODE:
+void merge_sort(int *arr, int start, int end){
+	if(start==end)
+		return;
+	int mid=(start+end)/2;
+	merge_sort(arr,start,mid);
+	merge_sort(arr,mid+1,end);
+	merge(arr,start,end);
+}
+
+void merge(int *arr, int start, int end){
+	int mid=(start+end)/2;
+	int i=start;
+	int j=mid+1;
+	int k=start;
+	int temp[100];
+	while(i<=mid && j<end){
+		if(arr[i] < arr[j])
+			temp[k++]=arr[i++];
+		else
+			temp[k++]=arr[j++];
+		}
+	while(i<=mid){
+			temp[k++]=arr[i++];	
+		}
+	while(j<=end){
+			temp[k++]=arr[j++];	
+		}	
+	for(i=start;i<=end;i++)
+		arr[i]=temp[i];
+*********************************************************************************************************************************************************************************
+7. Quick Sort: It is alse based on Divide and Conquer algorithm. It picks an element as pivot and partitions the given array around the picked pivot
+   Time Complexity : Best => O(nLog(n)) , Worst => O(n*n) 
+   Space Complexity: O(n) 
+   Stablitiy       : Not-Stable 
+   Is-In-Place     : In-Place
+   Tag             : Divide & Conquer
+   When to use     : 1.It is prefered over merge sort for extremely large array
+                     2.When you don't care about worst case complexity
+CODE:
+void quick_sort(int *arr, int start, int end){
+	if(start>=end)
+		return;
+	int p=partition(arr,start,end);
+	quick_sort(arr,start,p-1);
+	quick_sort(arr,p+1,end);
+}
+
+void partition(int *arr,int start,int end){
+	int i=start-1;
+	int j=start;
+	int pivot=arr[end];
+	for(;j<=end-1;){
+		if(arr[j]<=pivot){
+			i++;
+			swap(arr[i],arr[j]);
+		}
+		j=j+1;
+	}
+	swap(arr[i+1],arr[end]);
+	return i+1;
+}
+*********************************************************************************************************************************************************************************
